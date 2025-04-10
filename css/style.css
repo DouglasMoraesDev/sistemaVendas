@@ -1,0 +1,52 @@
+* { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
+body { background:#313131; color:#000000; }
+.container { max-width:800px; margin:20px auto; padding:10px; }
+.nav {
+  display:flex;
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  white-space:nowrap;
+  background:#425866;
+  padding:10px;
+}
+.nav a, .nav button {
+  flex:0 0 auto;
+  color:#000000;
+  text-decoration:none;
+  padding:8px 12px;
+  border:none;
+  background:none;
+  cursor:pointer;
+}
+.nav a.active { background:#425866; border-radius:4px; }
+.login-container {
+  max-width:300px;
+  margin:100px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+.login-container input, .login-container button {
+  width:100%; margin:5px 0; padding:10px;
+  border:1px solid #ccc; border-radius:4px;
+}
+.cards { display:flex; justify-content:space-between; flex-wrap:wrap; }
+.card {
+  background:#fff; padding:20px; margin:10px;
+  flex:1; min-width:150px; text-align:center;
+  border-radius:8px; box-shadow:0 0 5px rgba(0,0,0,0.1);
+}
+form { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
+form input, form select, form button {
+  padding:10px; border:1px solid #ccc; border-radius:4px; flex:1;
+}
+form button { background:#000000; color:#fff6f6; border:none; cursor:pointer; }
+table { width:100%; border-collapse:collapse; margin-top:10px; }
+table th, table td { border:1px solid #000000; padding:8px; text-align:left; }
+img.produto { width:50px; height:50px; object-fit:cover; border-radius:4px; }
+.card img.produto { width:100px; height:100px; }
+@media(max-width:600px) {
+  .cards { flex-direction:column; }
+  form { flex-direction:column; }
+}

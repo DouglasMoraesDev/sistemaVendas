@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendas - Sistema de Vendas</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <script>
+    if (localStorage.getItem('logado') !== 'true') window.location = 'index.html';
+  </script>
+  <nav class="nav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="clientes.html">Clientes</a>
+    <a href="produtos.html">Produtos</a>
+    <a href="vendas.html" class="active">Vendas</a>
+    <a href="historico.html">Histórico</a>
+    <button id="logout">Sair</button>
+  </nav>
+  <div class="container">
+    <h1 id="tituloVenda">Registrar Venda</h1>
+    <form id="formVenda">
+      <select id="selectCliente" required>
+        <option value="">Selecione o Cliente</option>
+      </select>
+      <select id="selectProduto" required>
+        <option value="">Selecione o Produto</option>
+      </select>
+      <input type="number" id="precoVenda" placeholder="Preço" readonly>
+      <input type="number" id="qtdVenda" placeholder="Quantidade" value="1" min="1" required>
+      <input type="text" id="totalVenda" placeholder="Total" readonly>
+      <input type="number" id="entradaVenda" placeholder="Entrada" min="0" value="0">
+      <input type="number" id="parcelasVenda" placeholder="Parcelas" min="1" value="1">
+      <input type="text" id="valorParcela" placeholder="Valor da Parcela" readonly>
+      <input type="text" id="obsVenda" placeholder="Observações">
+      <button type="submit" id="btnSubmitVenda">Registrar Venda</button>
+    </form>
+  </div>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/vendas.js"></script>
+</body>
+</html>
