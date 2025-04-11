@@ -47,7 +47,7 @@ form { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
 form input, form select, form button {
   padding:10px; border:1px solid #ccc; border-radius:4px; flex:1;
 }
-form button { background:#000000; color:#fff6f6; border:none; cursor:pointer; }
+form button { background:#55134c; color:#fff6f6; border:none; cursor:pointer; }
 table { width:100%; border-collapse:collapse; margin-top:10px; }
 table th, table td { border:1px solid #000000; padding:8px; text-align:left; }
 img.produto { width:50px; height:50px; object-fit:cover; border-radius:4px; }
@@ -55,4 +55,13 @@ img.produto { width:50px; height:50px; object-fit:cover; border-radius:4px; }
 @media(max-width:600px) {
   .cards { flex-direction:column; }
   form { flex-direction:column; }
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  font-family: 'Oxanium', sans-serif;
 }

@@ -25,20 +25,47 @@
         <option value="">Selecione o Cliente</option>
       </select>
       <select id="selectProduto" required>
-        <option value="">Selecione o Produto</option>
+        <option value="">Selecione a mercadoria</option>
       </select>
-      <input type="number" id="precoVenda" placeholder="Preço" readonly>
-      <input type="number" id="qtdVenda" placeholder="Quantidade" value="1" min="1" required>
-      <input type="text" id="totalVenda" placeholder="Total" readonly>
-      <input type="number" id="entradaVenda" placeholder="Entrada" min="0" value="0">
-      <input type="number" id="parcelasVenda" placeholder="Parcelas" min="1" value="1">
-      <input type="text" id="valorParcela" placeholder="Valor da Parcela" readonly>
-      <input type="text" id="obsVenda" placeholder="Observações">
+      <h4>
+        Valor total da mercadoria
+        <input type="number" id="precoVenda" placeholder="Preço" readonly>
+      </h2>
+      <h4>
+        Quantidade
+        <input type="number" id="qtdVenda" placeholder="Quantidade" value="1" min="1" required>
+      </h4>
+      <h4>
+        Valor total da venda
+        <input type="text" id="totalVenda" placeholder="Total" readonly>
+      </h4>
+      <h4>
+        Valor dado de entrada
+        <input type="number" id="entradaVenda" placeholder="Entrada" min="0" value="0">
+      </h4>
+      <h4>
+        Numero de parcelas
+        <input type="number" id="parcelasVenda" placeholder="Parcelas" min="1" value="1">
+      </h4>
+      <h4>
+        Valor da parcela por mes
+        <input type="text" id="valorParcela" placeholder="Valor da Parcela" readonly>
+      </h4>
+      <h4>
+        Observações
+        <input type="text" id="obsVenda" placeholder="Observações">
+      </h4>
       <button type="submit" id="btnSubmitVenda">Registrar Venda</button>
     </form>
   </div>
   <script src="js/storage.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/vendas.js"></script>
+  <footer>
+    <p>
+      &copy; Douglas Moraes Dev<br>
+      <a href="https://wa.me/qr/F2Z744R5KWEPB1" target="_blank">Contato</a>
+    </p>
+  </footer>
 </body>
 </html>
