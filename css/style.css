@@ -18,6 +18,9 @@ body { background:#313131; color:#000000; }
   background:none;
   cursor:pointer;
 }
+h3 {
+  color: red;
+}
 .nav a.active { background:#425866; border-radius:4px; }
 .login-container {
   max-width:300px;
@@ -36,6 +39,9 @@ body { background:#313131; color:#000000; }
   background:#fff; padding:20px; margin:10px;
   flex:1; min-width:150px; text-align:center;
   border-radius:8px; box-shadow:0 0 5px rgba(0,0,0,0.1);
+}
+td {
+  color: red;
 }
 form { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
 form input, form select, form button {
