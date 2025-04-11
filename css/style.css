@@ -1,213 +1,297 @@
-/* Variáveis de tema */
-:root {
-  --footer-bg: #55134c;
-  --footer-text: #ffffff;
+/* ==============================
+   Variáveis de tema
+   ============================== */
+   :root {
+    --bg-page:    #ecf0f1;  /* fundo geral */
+    --bg-nav:     #004e81;  /* nav */
+    --text-nav:   #ecf0f1;  /* links nav */
+    --bg-container:#ffffff; /* container principal */
+    --text-base:  #2c3e50;  /* texto normal */
+    --accent:     #004e81;  /* botões e destaques */
+    --btn-text:   #ffffff;  /* texto de botão */
+    --border:     #bdc3c7;  /* bordas */
+    --footer-bg:  #2c3e50;  /* rodapé */
+    --footer-text:#ecf0f1;  /* texto rodapé */
+    --bg--card: #004e81; /* fundo do card */
+  }
+  
+  /* ==============================
+     Reset e tipografia
+     ============================== */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  body {
+    background: var(--bg-page);
+    color: var(--text-base);
+    padding-bottom: 60px; /* espaço para footer fixo */
+  }
+  
+  /* ==============================
+     Container
+     ============================== */
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    background: var(--bg-container);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  /* ==============================
+     Cabeçalhos
+     ============================== */
+  h1, h2,  h4 {
+    color: var(--text-base);
+  }
+  h1 {
+    text-align: center;
+    margin: 30px 0;
+  }
+  
+  /* ==============================
+     Navegação
+     ============================== */
+  .nav {
+    display: flex; flex-wrap: nowrap; overflow-x: auto; white-space: nowrap;
+    background: var(--bg-nav); padding: 10px;
+  }
+  .nav a, .nav button {
+    flex: 0 0 auto;
+    color: var(--text-nav);
+    text-decoration: none;
+    padding: 8px 12px;
+    margin-right: 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .nav a:hover, .nav button:hover {
+    background: rgba(12, 62, 201, 0.2);
+  }
+  .nav a.active {
+    background: var(--accent);
+    color: var(--btn-text);
+  }
+  
+  /* ==============================
+     Formulários genéricos
+     ============================== */
+  form {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;
+  }
+  form input, form select, form button {
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    flex: 1;
+  }
+  form button {
+    background: var(--accent);
+    color: var(--btn-text);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  form button:hover {
+    background: darken(var(--accent), 10%);
+  }
+  
+  /* ==============================
+     Login
+     ============================== */
+  .login-container {
+    max-width: 300px; margin: 100px auto;
+    background: var(--bg-container);
+    padding: 20px; border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .login-container input, .login-container button {
+    width: 100%; margin: 5px 0;
+  }
+  
+  /* ==============================
+     Cards de resumo
+     ============================== */
+  .cards {
+    display: flex; justify-content: space-between; flex-wrap: wrap;
+  }
+  .card {
+    background: var(--bg--card);
+    color: var(--text-nav);
+    padding: 20px; margin: 10px;
+    flex: 1; min-width: 150px; text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  /* ==============================
+     Tabelas
+     ============================== */
+  table {
+    width: 100%; border-collapse: collapse; margin-top: 10px;
+  }
+  table th, table td {
+    border: 1px solid var(--border); padding: 8px; text-align: left;
+  }
+  table th {
+    background: var(--bg-nav); color: var(--text-nav);
+  }
+  
+  /* ==============================
+     Imagens de produto
+     ============================== */
+  img.produto {
+    width: 50px; height: 50px; object-fit: cover; border-radius: 4px;
+  }
+  .card img.produto {
+    width: 100px; height: 100px;
+  }
+  
+  /* ==============================
+     Formulário de Vendas em lista
+     ============================== */
+  .form-list {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 15px; padding: 20px 0;
+  }
+  .form-group {
+    display: flex; flex-direction: column; align-items: center;
+    width: 100%; max-width: 300px;
+  }
+  .form-group label {
+    margin-bottom: 5px; font-weight: bold; text-align: center;
+  }
+  .form-list input,
+  .form-list select,
+  .form-list button {
+    width: 100%; padding: 10px; border-radius: 4px;
+    border: 1px solid var(--border); font-size: 1rem;
+  }
+  .form-list button {
+    background: var(--accent); color: var(--btn-text);
+  }
+  
+  /* ==============================
+     Busca de Cliente (Parcelas)
+     ============================== */
+  .search-group {
+    text-align: center; margin: 20px 0;
+  }
+  .search-group input {
+    width: 80%; max-width: 300px;
+    padding: 8px; border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  
+  /* ==============================
+     Cards de Parcelas & Comprovantes
+     ============================== */
+
+  #listaParcelas .card,
+  #listaComprovantes .card {
+    background: var(--bg--card);
+    margin: 10px auto; padding: 20px;
+    max-width: 400px; border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  #listaParcelas .card p,
+  #listaComprovantes .card p {
+    margin: 8px 0;
+  }
+  #listaParcelas .card button,
+  #listaComprovantes .card button {
+    margin: 8px 4px; padding: 8px 12px;
+    border: none; border-radius: 4px; cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  #listaParcelas .btn-pagar { background: #16a085; color: #fff; }
+  #listaParcelas .btn-pdf   { background: #e67e22; color: #fff; }
+  #listaComprovantes .proofs-container {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px;
+  }
+  #listaComprovantes .proof-img {
+    width: 100px; height: 80px; object-fit: cover;
+    border-radius: 4px; border: 1px solid var(--border);
+  }
+
+  /* ==============================
+   Cards de Configurações
+   ============================== */
+
+.container .card {
+  background: var(--bg--card); /* mesma cor de fundo dos outros cards */
+  margin: 10px auto;
+  padding: 20px;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #8e44ad;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
-/* Reset e tipografia */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+.container .card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
 }
 
-/* Corpo da página */
-body {
-  background: #124c8d;
-  color: #000000;
-  /* espaço inferior para não ficar sob o footer */
-  padding-bottom: 60px;
-}
-
-/* Container centralizado */
-.container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 10px;
-}
-
-/* Cabeçalhos h1 centralizados e com espaçamento */
-h1 {
-  text-align: center;
-  margin: 30px 0;
-}
-
-/* Navegação */
-.nav {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  white-space: nowrap;
-  background: #55134c;
-  padding: 10px;
-}
-.nav a,
-.nav button {
-  flex: 0 0 auto;
-  color: #000000;
-  text-decoration: none;
+.container .card button {
+  margin-top: 10px;
   padding: 8px 12px;
+  background: #07a03a;
+  color: #fff;
   border: none;
-  background: none;
+  border-radius: 4px;
   cursor: pointer;
-}
-.nav a.active {
-  background: #55134c;
-  border-radius: 4px;
+  transition: background 0.3s;
 }
 
-/* Login */
-.login-container {
-  max-width: 300px;
-  margin: 100px auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+.container .card button:hover {
+  background: #732d91;
 }
-.login-container input,
-.login-container button {
+
+.container .card input[type="file"] {
+  margin-top: 10px;
+  display: block;
+}
+
+
+  /* ==============================
+   Rolagem horizontal para tabelas
+   ============================== */
+.table-responsive {
   width: 100%;
-  margin: 5px 0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  overflow-x: auto;
+  /* opcional: adiciona um pequeno padding para o scroll */
+  padding-bottom: 10px;
 }
 
-/* Cartões de resumo */
-.cards {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.card {
-  background: #fff;
-  padding: 20px;
-  margin: 10px;
-  flex: 1;
-  min-width: 150px;
-  text-align: center;
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
-/* Tabelas */
-table {
+.table-responsive table {
+  /* força a tabela a não encolher demais */
+  min-width: 600px; /* ajuste esse valor conforme número de colunas */
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
-}
-table th,
-table td {
-  border: 1px solid #000000;
-  padding: 8px;
-  text-align: left;
 }
 
-/* Formulários genéricos */
-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-form input,
-form select,
-form button {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  flex: 1;
-}
-form button {
-  background: #55134c;
-  color: #fff6f6;
-  border: none;
-  cursor: pointer;
-}
-
-/* Imagens de produto */
-img.produto {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-.card img.produto {
-  width: 100px;
-  height: 100px;
-}
-
-/* Destaque de células (exemplo) */
-td {
-  color: red;
-}
-h3 {
-  color: red;
-}
-
-/* Layout em lista para o formulário de vendas */
-.form-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  padding: 20px 0;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 300px;
-}
-
-.form-group label {
-  margin-bottom: 5px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.form-list input,
-.form-list select,
-.form-list button {
-  width: 100%;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-.form-list button {
-  background: #55134c;
-  color: #fff6f6;
-  border: none;
-  cursor: pointer;
-}
-
-/* Responsivo */
-@media (max-width: 600px) {
-  .cards {
-    flex-direction: column;
+  
+  /* ==============================
+     Responsivo
+     ============================== */
+  @media (max-width: 600px) {
+    .cards { flex-direction: column; }
+    form, .form-list { padding: 0 10px; }
   }
-  form {
-    flex-direction: column;
+  
+  /* ==============================
+     Footer fixo
+     ============================== */
+  footer {
+    position: fixed; bottom: 0; left: 0; width: 100%;
+    background: var(--footer-bg); color: var(--footer-text);
+    text-align: center; padding: 12px 0;
   }
-  .form-list {
-    padding: 0 10px;
-  }
-}
-
-/* Footer fixo */
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  padding: 10px 0;
-  background-color: var(--footer-bg);
-  color: var(--footer-text);
-}
+  

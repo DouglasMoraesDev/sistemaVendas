@@ -1,7 +1,10 @@
-const userDefault = { user:'Diego', pass:'1234' };
+// Usuário padrão (pode depois vir de um array ou API)
+const userDefault = { user: 'Diego', pass: '1234' };
+
 document.getElementById('btnLogin')?.addEventListener('click', () => {
   const u = document.getElementById('username').value;
   const p = document.getElementById('password').value;
+
   if (u === userDefault.user && p === userDefault.pass) {
     localStorage.setItem('logado', 'true');
     window.location = 'dashboard.html';

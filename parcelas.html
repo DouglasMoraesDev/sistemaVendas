@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Histórico - Sistema de Vendas</title>
+  <title>Parcelas - Sistema de Vendas</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -16,8 +16,8 @@
     <a href="clientes.html">Clientes</a>
     <a href="produtos.html">Mercadorias</a>
     <a href="vendas.html">Vendas</a>
-    <a href="historico.html" class="active">Histórico</a>
-    <a href="parcelas.html">Parcelas</a>
+    <a href="historico.html">Histórico</a>
+    <a href="parcelas.html" class="active">Parcelas</a>
     <a href="comprovantes.html" class="active">Comprovantes</a>
     <a href="configuracoes.html" class="active">Configurações</a>
 
@@ -25,13 +25,17 @@
   </nav>
 
   <div class="container">
-    <h1>Histórico de Vendas</h1>
-    <div id="listaHistorico"></div>
+    <h1>Controle de Parcelas</h1>
+    <div class="search-group">
+      <input type="text" id="searchCliente" placeholder="Buscar cliente…">
+    </div>
+    <div id="listaParcelas"></div>
   </div>
 
+  <!-- jsPDF para geração de PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/auth.js"></script>
-  <script src="js/vendas.js"></script>
-  <script src="js/historico.js"></script>
+  <script src="js/parcelas.js"></script>
 </body>
 </html>

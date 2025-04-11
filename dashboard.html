@@ -2,31 +2,39 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard - Sistema de Vendas</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- Bloqueia acesso se não estiver logado -->
   <script>
     if (localStorage.getItem('logado') !== 'true') window.location = 'index.html';
   </script>
+
   <nav class="nav">
-    <a href="dashboard.html">Resumo</a>
+    <a href="dashboard.html" class="active">Resumo</a>
     <a href="clientes.html">Clientes</a>
     <a href="produtos.html">Mercadorias</a>
     <a href="vendas.html">Vendas</a>
     <a href="historico.html">Histórico</a>
+    <a href="parcelas.html">Parcelas</a>
+    <a href="comprovantes.html" class="active">Comprovantes</a>
+    <a href="configuracoes.html" class="active">Configurações</a>
+
     <button id="logout">Sair</button>
   </nav>
+
   <div class="container">
     <h1>Resumo</h1>
     <div class="cards">
+      <!-- Cartões com contagem dinâmica -->
       <div class="card">
         <h3>Clientes</h3>
         <p id="countClientes"></p>
       </div>
       <div class="card">
-        <h3>Produtos</h3>
+        <h3>Mercadoria</h3>
         <p id="countProdutos"></p>
       </div>
       <div class="card">
@@ -35,23 +43,19 @@
       </div>
     </div>
   </div>
+
   <script src="js/storage.js"></script>
   <script src="js/auth.js"></script>
   <script>
+    // Logout
     document.getElementById('logout').onclick = () => {
       localStorage.removeItem('logado');
       window.location = 'index.html';
     };
+    // Preenche as contagens
     document.getElementById('countClientes').textContent = getData('clientes').length;
     document.getElementById('countProdutos').textContent = getData('produtos').length;
     document.getElementById('countVendas').textContent = getData('vendas').length;
   </script>
-
-<footer>
-  <p>
-    &copy; Douglas Moraes Dev<br>
-    <a href="https://wa.me/qr/F2Z744R5KWEPB1" target="_blank">Contato</a>
-  </p>
-</footer>
 </body>
 </html>

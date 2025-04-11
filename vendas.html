@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Vendas - Sistema de Vendas</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -10,14 +10,20 @@
   <script>
     if (localStorage.getItem('logado') !== 'true') window.location = 'index.html';
   </script>
+
   <nav class="nav">
     <a href="dashboard.html">Resumo</a>
     <a href="clientes.html">Clientes</a>
     <a href="produtos.html">Mercadorias</a>
     <a href="vendas.html" class="active">Vendas</a>
     <a href="historico.html">Histórico</a>
+    <a href="parcelas.html">Parcelas</a>
+    <a href="comprovantes.html" class="active">Comprovantes</a>
+    <a href="configuracoes.html" class="active">Configurações</a>
+
     <button id="logout">Sair</button>
   </nav>
+
   <div class="container">
     <h1 id="tituloVenda">Registrar Venda</h1>
     <form id="formVenda" class="form-list">
@@ -35,7 +41,8 @@
       </div>
       <div class="form-group">
         <label for="precoVenda">Valor unitário</label>
-        <input type="number" id="precoVenda" placeholder="R$ 0,00" readonly>
+        <!-- agora text para exibir R$ 1.000,00 -->
+        <input type="text" id="precoVenda" readonly>
       </div>
       <div class="form-group">
         <label for="qtdVenda">Quantidade</label>
@@ -43,11 +50,12 @@
       </div>
       <div class="form-group">
         <label for="totalVenda">Total da venda</label>
-        <input type="text" id="totalVenda" placeholder="R$ 0,00" readonly>
+        <input type="text" id="totalVenda" readonly>
       </div>
       <div class="form-group">
         <label for="entradaVenda">Entrada</label>
-        <input type="number" id="entradaVenda" value="0" min="0">
+        <!-- text para máscara de moeda -->
+        <input type="text" id="entradaVenda" value="0,00">
       </div>
       <div class="form-group">
         <label for="parcelasVenda">Número de parcelas</label>
@@ -55,25 +63,35 @@
       </div>
       <div class="form-group">
         <label for="valorParcela">Valor por parcela</label>
-        <input type="text" id="valorParcela" placeholder="R$ 0,00" readonly>
+        <input type="text" id="valorParcela" readonly>
       </div>
       <div class="form-group">
         <label for="obsVenda">Observações</label>
-        <input type="text" id="obsVenda" placeholder="Alguma nota…">
+        <input type="text" id="obsVenda">
       </div>
       <div class="form-group">
         <button type="submit" id="btnSubmitVenda">Registrar Venda</button>
       </div>
     </form>
   </div>
+
   <script src="js/storage.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/vendas.js"></script>
-  <footer>
-    <p>
-      &copy; Douglas Moraes Dev<br>
-      <a href="https://wa.me/qr/F2Z744R5KWEPB1" target="_blank">Contato</a>
-    </p>
-  </footer>
+
+  <script>
+    // Máscara simples de moeda pt-BR para entrada
+    const entradaInput = document.getElementById('entradaVenda');
+    entradaInput.addEventListener('input', e => {
+      let v = e.target.value.replace(/\D/g, '');
+      v = (parseInt(v, 10) / 100).toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      e.target.value = v;
+      // atualiza totais
+      if (typeof updateTotals === 'function') updateTotals();
+    });
+  </script>
 </body>
 </html>

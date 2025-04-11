@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Clientes - Sistema de Vendas</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -10,16 +10,23 @@
   <script>
     if (localStorage.getItem('logado') !== 'true') window.location = 'index.html';
   </script>
+
   <nav class="nav">
     <a href="dashboard.html">Resumo</a>
     <a href="clientes.html" class="active">Clientes</a>
     <a href="produtos.html">Mercadorias</a>
     <a href="vendas.html">Vendas</a>
     <a href="historico.html">Histórico</a>
+    <a href="parcelas.html">Parcelas</a>
+    <a href="comprovantes.html" class="active">Comprovantes</a>
+    <a href="configuracoes.html" class="active">Configurações</a>
+
     <button id="logout">Sair</button>
   </nav>
+
   <div class="container">
     <h1>Clientes</h1>
+    <!-- Form de cadastro/edição -->
     <form id="formCliente">
       <input type="text" id="nome" placeholder="Nome" required>
       <input type="text" id="cpf" placeholder="CPF" required>
@@ -27,27 +34,27 @@
       <input type="text" id="contato" placeholder="Contato" required>
       <button type="submit" id="btnSalvarCliente">Adicionar Cliente</button>
     </form>
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>CPF</th>
-          <th>Endereço</th>
-          <th>Contato</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody id="listaClientes"></tbody>
-    </table>
+
+    <!-- Tabela de clientes -->
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Endereço</th>
+            <th>Contato</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="listaClientes"></tbody>
+      </table>
+    </div>
+    
   </div>
+
   <script src="js/storage.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/clientes.js"></script>
-  <footer>
-    <p>
-      &copy; Douglas Moraes Dev<br>
-      <a href="https://wa.me/qr/F2Z744R5KWEPB1" target="_blank">Contato</a>
-    </p>
-  </footer>
 </body>
 </html>
