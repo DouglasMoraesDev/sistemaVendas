@@ -20,42 +20,50 @@
   </nav>
   <div class="container">
     <h1 id="tituloVenda">Registrar Venda</h1>
-    <form id="formVenda">
-      <select id="selectCliente" required>
-        <option value="">Selecione o Cliente</option>
-      </select>
-      <select id="selectProduto" required>
-        <option value="">Selecione a mercadoria</option>
-      </select>
-      <h4>
-        Valor total da mercadoria
-        <input type="number" id="precoVenda" placeholder="Preço" readonly>
-      </h2>
-      <h4>
-        Quantidade
-        <input type="number" id="qtdVenda" placeholder="Quantidade" value="1" min="1" required>
-      </h4>
-      <h4>
-        Valor total da venda
-        <input type="text" id="totalVenda" placeholder="Total" readonly>
-      </h4>
-      <h4>
-        Valor dado de entrada
-        <input type="number" id="entradaVenda" placeholder="Entrada" min="0" value="0">
-      </h4>
-      <h4>
-        Numero de parcelas
-        <input type="number" id="parcelasVenda" placeholder="Parcelas" min="1" value="1">
-      </h4>
-      <h4>
-        Valor da parcela por mes
-        <input type="text" id="valorParcela" placeholder="Valor da Parcela" readonly>
-      </h4>
-      <h4>
-        Observações
-        <input type="text" id="obsVenda" placeholder="Observações">
-      </h4>
-      <button type="submit" id="btnSubmitVenda">Registrar Venda</button>
+    <form id="formVenda" class="form-list">
+      <div class="form-group">
+        <label for="selectCliente">Selecione o Cliente</label>
+        <select id="selectCliente" required>
+          <option value="">-- Selecione --</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="selectProduto">Selecione a mercadoria</label>
+        <select id="selectProduto" required>
+          <option value="">-- Selecione --</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="precoVenda">Valor unitário</label>
+        <input type="number" id="precoVenda" placeholder="R$ 0,00" readonly>
+      </div>
+      <div class="form-group">
+        <label for="qtdVenda">Quantidade</label>
+        <input type="number" id="qtdVenda" value="1" min="1" required>
+      </div>
+      <div class="form-group">
+        <label for="totalVenda">Total da venda</label>
+        <input type="text" id="totalVenda" placeholder="R$ 0,00" readonly>
+      </div>
+      <div class="form-group">
+        <label for="entradaVenda">Entrada</label>
+        <input type="number" id="entradaVenda" value="0" min="0">
+      </div>
+      <div class="form-group">
+        <label for="parcelasVenda">Número de parcelas</label>
+        <input type="number" id="parcelasVenda" value="1" min="1">
+      </div>
+      <div class="form-group">
+        <label for="valorParcela">Valor por parcela</label>
+        <input type="text" id="valorParcela" placeholder="R$ 0,00" readonly>
+      </div>
+      <div class="form-group">
+        <label for="obsVenda">Observações</label>
+        <input type="text" id="obsVenda" placeholder="Alguma nota…">
+      </div>
+      <div class="form-group">
+        <button type="submit" id="btnSubmitVenda">Registrar Venda</button>
+      </div>
     </form>
   </div>
   <script src="js/storage.js"></script>
