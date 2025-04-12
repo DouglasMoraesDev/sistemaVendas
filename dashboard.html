@@ -7,55 +7,57 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Bloqueia acesso se não estiver logado -->
   <script>
     if (localStorage.getItem('logado') !== 'true') window.location = 'index.html';
   </script>
-  <h1>Bem vindo ao Gerenciador de vendas</h1>
+
+  <!-- menu hambúrguer + nav -->
+  <button id="btn-menu" class="hamburger">
+    <span></span><span></span><span></span>
+  </button>
   <nav class="nav">
     <a href="dashboard.html" class="active">Resumo</a>
     <a href="clientes.html">Clientes</a>
     <a href="produtos.html">Mercadorias</a>
-    <a href="vendas.html">Registrar uma venda</a>
-    <a href="historico.html">Histórico de venda</a>
+    <a href="vendas.html">Vendas</a>
+    <a href="historico.html">Histórico</a>
     <a href="parcelas.html">Parcelas</a>
-    <a href="comprovantes.html" class="active">Comprovantes</a>
-    <a href="configuracoes.html" class="active">Configurações</a>
-
+    <a href="comprovantes.html">Comprovantes</a>
+    <a href="configuracoes.html">Configurações</a>
     <button id="logout">Sair</button>
   </nav>
 
   <div class="container">
-    <h1>Resumo</h1>
+    <h1>Bem‑vindo ao Gerenciador de Vendas</h1>
+    <p class="subtitle">Aqui você tem uma visão geral rápida do seu negócio.</p>
     <div class="cards">
-      <!-- Cartões com contagem dinâmica -->
       <div class="card">
         <h3>Clientes</h3>
         <p id="countClientes"></p>
       </div>
       <div class="card">
-        <h3>Mercadoria</h3>
+        <h3>Mercadorias</h3>
         <p id="countProdutos"></p>
       </div>
       <div class="card">
         <h3>Vendas</h3>
         <p id="countVendas"></p>
       </div>
+      <div class="card card-notify">
+        <h3>Parcelas Vencendo Hoje</h3>
+        <ul id="notifyParcelas"><li>Carregando...</li></ul>
+      </div>
     </div>
   </div>
 
   <script src="js/storage.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
   <script>
-    // Logout
-    document.getElementById('logout').onclick = () => {
-      localStorage.removeItem('logado');
-      window.location = 'index.html';
+    // alterna menu
+    document.getElementById('btn-menu').onclick = () => {
+      document.querySelector('.nav').classList.toggle('open');
     };
-    // Preenche as contagens
-    document.getElementById('countClientes').textContent = getData('clientes').length;
-    document.getElementById('countProdutos').textContent = getData('produtos').length;
-    document.getElementById('countVendas').textContent = getData('vendas').length;
   </script>
 </body>
 </html>

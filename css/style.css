@@ -2,298 +2,209 @@
    Variáveis de tema
    ============================== */
    :root {
-    --bg-page:    #ecf0f1;  /* fundo geral */
-    --bg-nav:     #004e81;  /* nav */
-    --text-nav:   #ecf0f1;  /* links nav */
-    --bg-container:#ffffff; /* container principal */
-    --text-base:  #2c3e50;  /* texto normal */
-    --accent:     #004e81;  /* botões e destaques */
-    --btn-text:   #ffffff;  /* texto de botão */
-    --border:     #bdc3c7;  /* bordas */
-    --footer-bg:  #2c3e50;  /* rodapé */
-    --footer-text:#ecf0f1;  /* texto rodapé */
-    --bg--card: #004e81; /* fundo do card */
+    --clr-bg:        #316192;
+    --clr-primary:   #264653;
+    --clr-secondary: #2a9d8f;
+    --clr-accent:    #e76f51;
+    --clr-surface:   #ffffff;
+    --clr-text:      #212529;
+    --clr-text-light:#f8f9fa;
+    --shadow:        0 4px 12px rgba(0,0,0,0.1);
+    --border:        #bdc3c7;
   }
   
   /* ==============================
-     Reset e tipografia
+     Reset & tipografia
      ============================== */
   * {
     margin: 0; padding: 0; box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
   }
   body {
-    background: var(--bg-page);
-    color: var(--text-base);
-    padding-bottom: 60px; /* espaço para footer fixo */
+    background: var(--clr-bg);
+    color: var(--clr-text);
+    padding-bottom: 80px;
+  }
+  
+  /* ==============================
+     Hambúrguer
+     ============================== */
+  .hamburger {
+    position: fixed; top: 10px; left: 10px;
+    width: 30px; height: 30px;
+    background: var(--clr-surface);
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    box-shadow: var(--shadow);
+    cursor: pointer; z-index: 1001;
+  }
+  .hamburger span {
+    width: 24px; height: 2px;
+    background: var(--clr-primary);
+    border-radius: 1px;
+    transition: transform .3s, opacity .3s;
+  }
+  .hamburger span:not(:last-child) {
+    margin-bottom: 6px;
+  }
+  .nav.open ~ .hamburger span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .nav.open ~ .hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav.open ~ .hamburger span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+  
+  /* ==============================
+     Navegação
+     ============================== */
+  .nav {
+    position: fixed; top: 0; left: 0; height: 100%;
+    width: 240px; background: var(--clr-primary);
+    padding-top: 80px; transform: translateX(-100%);
+    transition: transform .3s; z-index: 1000;
+  }
+  .nav.open {
+    transform: translateX(0);
+  }
+  .nav a, .nav button {
+    display: block; color: var(--clr-text-light);
+    text-decoration: none; padding: 12px 20px;
+    font-size: 1rem; transition: background .2s;
+  }
+  .nav a:hover, .nav button:hover {
+    background: rgba(255,255,255,0.1);
+  }
+  .nav a.active {
+    background: var(--clr-secondary);
+  }
+  .nav.open ~ .container {
+    margin-left: 240px;
   }
   
   /* ==============================
      Container
      ============================== */
   .container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 10px;
-    background: var(--bg-container);
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    max-width: 900px; margin: 40px auto; padding: 20px;
+    background: var(--clr-surface); border-radius: 8px;
+    box-shadow: var(--shadow);
+    transition: margin-left .3s;
+  }
+  
+  /* ==============================
+     Botão “Voltar”
+     ============================== */
+  .btn-back {
+    background: none;
+    border: none;
+    color: var(--clr-primary);
+    font-size: 1rem;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: color .2s;
+  }
+  .btn-back:hover {
+    color: var(--clr-accent);
   }
   
   /* ==============================
      Cabeçalhos
      ============================== */
-  h1, h2,  h4 {
-    color: var(--text-base);
-  }
   h1 {
-    
-    text-align: center;
-    margin: 30px 0;
+    text-align: center; margin-bottom: 8px;
+    font-size: 2rem; color: var(--clr-primary);
   }
-  
-  /* ==============================
-     Navegação
-     ============================== */
-  .nav{
-    display: flex; flex-wrap: nowrap; overflow-x: auto; white-space: nowrap;
-    background: var(--bg-nav); padding: 10px;
-  }
-  .nav a, .nav button {
-    flex: 0 0 auto;
-    color: var(--text-nav);
-    text-decoration: none;
-    padding: 8px 12px;
-    margin-right: 8px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background 0.2s;
-  }
-  .nav a:hover, .nav button:hover {
-    background: rgba(12, 62, 201, 0.2);
-  }
-  .nav a.active {
-    background: var(--accent);
-    color: var(--btn-text);
-  }
-  
-  /* ==============================
-     Formulários genéricos
-     ============================== */
-  form {
-    display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;
-  }
-  form input, form select, form button {
-    padding: 10px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    flex: 1;
-  }
-  form button {
-    background: var(--accent);
-    color: var(--btn-text);
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  form button:hover {
-    background: darken(var(--accent), 10%);
-  }
-  
-  /* ==============================
-     Login
-     ============================== */
-  .login-container {
-    text-align: center;
-    max-width: 300px; margin: 100px auto;
-    background: var(--bg-container);
-    padding: 20px; border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-  .login-container input, .login-container button {
-    width: 100%; margin: 5px 0;
+  .subtitle {
+    text-align: center; color: var(--clr-secondary);
+    margin-bottom: 24px; font-size: 1.2rem;
   }
   
   /* ==============================
      Cards de resumo
      ============================== */
   .cards {
-    display: flex; justify-content: space-between; flex-wrap: wrap;
+    display: flex; gap: 20px; flex-wrap: wrap;
   }
   .card {
-    background: var(--bg--card);
-    color: var(--text-nav);
+    flex: 1; min-width: 150px;
+    background: var(--clr-surface);
+    color: var(--clr-text);
     padding: 20px; margin: 10px;
-    flex: 1; min-width: 150px; text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 8px; box-shadow: var(--shadow);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
+  
+  /* ==============================
+     Notificações na Dashboard
+     ============================== */
+  .card-notify {
+    border-left: 5px solid var(--clr-accent);
+  }
+  .card-notify ul {
+    list-style: none; padding-left: 0; margin-top: 12px;
+  }
+  .card-notify li {
+    margin: 6px 0; font-weight: bold; color: var(--clr-accent);
+  }
+  
+  /* ==============================
+     Imagens (produtos e comprovantes)
+     ============================== */
+  img.produto {
+    width: 50px; height: 50px;
+    object-fit: cover; border-radius: 4px;
+  }
+  .card img.produto {
+    width: 100px; height: 100px;
+  }
+  .proof-img {
+    width: 50px; height: 50px;
+    object-fit: cover; border-radius: 4px;
+    border: 1px solid var(--border);
   }
   
   /* ==============================
      Tabelas
      ============================== */
+  .table-responsive { overflow-x: auto; margin-top: 20px; }
   table {
-    width: 100%; border-collapse: collapse; margin-top: 10px;
+    width: 100%; border-collapse: collapse;
   }
-  table th, table td {
-    border: 1px solid var(--border); padding: 8px; text-align: left;
+  th, td {
+    padding: 12px; border: 1px solid var(--border);
   }
-  table th {
-    background: var(--bg-nav); color: var(--text-nav);
-  }
-  
-  /* ==============================
-     Imagens de produto
-     ============================== */
-  img.produto {
-    width: 50px; height: 50px; object-fit: cover; border-radius: 4px;
-  }
-  .card img.produto {
-    width: 100px; height: 100px;
+  th {
+    background: var(--clr-primary); color: var(--clr-text-light);
   }
   
   /* ==============================
-     Formulário de Vendas em lista
+     Formulários
      ============================== */
-  .form-list {
-    display: flex; flex-direction: column; align-items: center;
-    gap: 15px; padding: 20px 0;
+  form {
+    display: grid; gap: 16px; margin-bottom: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
   }
-  .form-group {
-    display: flex; flex-direction: column; align-items: center;
-    width: 100%; max-width: 300px;
-  }
-  .form-group label {
-    margin-bottom: 5px; font-weight: bold; text-align: center;
-  }
-  .form-list input,
-  .form-list select,
-  .form-list button {
-    width: 100%; padding: 10px; border-radius: 4px;
-    border: 1px solid var(--border); font-size: 1rem;
-  }
-  .form-list button {
-    background: var(--accent); color: var(--btn-text);
-  }
-  
-  /* ==============================
-     Busca de Cliente (Parcelas)
-     ============================== */
-  .search-group {
-    text-align: center; margin: 20px 0;
-  }
-  .search-group input {
-    width: 80%; max-width: 300px;
-    padding: 8px; border-radius: 4px;
-    border: 1px solid var(--border);
-  }
-  
-  /* ==============================
-     Cards de Parcelas & Comprovantes
-     ============================== */
-
-  #listaParcelas .card,
-  #listaComprovantes .card {
-    background: var(--bg--card);
-    margin: 10px auto; padding: 20px;
-    max-width: 400px; border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-  #listaParcelas .card p,
-  #listaComprovantes .card p {
-    margin: 8px 0;
-  }
-  #listaParcelas .card button,
-  #listaComprovantes .card button {
-    margin: 8px 4px; padding: 8px 12px;
-    border: none; border-radius: 4px; cursor: pointer;
-    transition: opacity 0.2s;
-  }
-  #listaParcelas .btn-pagar { background: #16a085; color: #fff; }
-  #listaParcelas .btn-pdf   { background: #e67e22; color: #fff; }
-  #listaComprovantes .proofs-container {
-    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px;
-  }
-  #listaComprovantes .proof-img {
-    width: 100px; height: 80px; object-fit: cover;
-    border-radius: 4px; border: 1px solid var(--border);
-  }
-
-  /* ==============================
-   Cards de Configurações
-   ============================== */
-
-.container .card {
-  background: var(--bg--card); /* mesma cor de fundo dos outros cards */
-  margin: 10px auto;
-  padding: 10px;
-  max-width: 400px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  border-left: 5px solid #8e44ad;
-  transition: box-shadow 0.3s, transform 0.3s;
-}
-
-.container .card:hover {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-  transform: translateY(-4px);
-}
-
-.container .card button {
-  margin-top: 10px;
-  padding: 8px 12px;
-  background: #07a03a;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.container .card button:hover {
-  background: #732d91;
-}
-
-.container .card input[type="file"] {
-  margin-top: 10px;
-  display: block;
-}
-
-
-  /* ==============================
-   Rolagem horizontal para tabelas
-   ============================== */
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  /* opcional: adiciona um pequeno padding para o scroll */
-  padding-bottom: 10px;
-}
-
-.table-responsive table {
-  /* força a tabela a não encolher demais */
-  min-width: 600px; /* ajuste esse valor conforme número de colunas */
-  width: 100%;
-  border-collapse: collapse;
-}
-
+  form label { font-weight: bold; color: var(--clr-primary); }
+  form input, form select, form button { width: 100%; }
   
   /* ==============================
      Responsivo
      ============================== */
-  @media (max-width: 600px) {
-    .cards { flex-direction: column; }
-    form, .form-list { padding: 0 10px; }
-  }
-  
-  /* ==============================
-     Footer fixo
-     ============================== */
-  footer {
-    position: fixed; bottom: 0; left: 0; width: 100%;
-    background: var(--footer-bg); color: var(--footer-text);
-    text-align: center; padding: 12px 0;
+  @media (min-width: 768px) {
+    .hamburger { display: none; }
+    .nav {
+      position: static; transform: none; height: auto;
+      width: 100%; display: flex; padding: 0;
+    }
+    .nav a, .nav button { display: inline-block; margin-right: 8px; }
+    .container { margin-left: 0; }
   }
   

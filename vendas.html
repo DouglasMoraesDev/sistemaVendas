@@ -11,37 +11,40 @@
     if (localStorage.getItem('logado') !== 'true') window.location = 'index.html';
   </script>
 
+  <!-- menu hambúrguer + nav -->
+  <button id="btn-menu" class="hamburger">
+    <span></span><span></span><span></span>
+  </button>
   <nav class="nav">
     <a href="dashboard.html">Resumo</a>
     <a href="clientes.html">Clientes</a>
     <a href="produtos.html">Mercadorias</a>
-    <a href="vendas.html">Registrar uma venda</a>
-    <a href="historico.html">Histórico de venda</a>
+    <a href="vendas.html" class="active">Vendas</a>
+    <a href="historico.html">Histórico</a>
     <a href="parcelas.html">Parcelas</a>
-    <a href="comprovantes.html" class="active">Comprovantes</a>
-    <a href="configuracoes.html" class="active">Configurações</a>
-
+    <a href="comprovantes.html">Comprovantes</a>
+    <a href="configuracoes.html">Configurações</a>
     <button id="logout">Sair</button>
   </nav>
 
   <div class="container">
     <h1 id="tituloVenda">Registrar Venda</h1>
     <form id="formVenda" class="form-list">
+      <!-- campos de cliente, produto, valores... -->
       <div class="form-group">
-        <label for="selectCliente">Selecione o Cliente</label>
+        <label for="selectCliente">Cliente</label>
         <select id="selectCliente" required>
           <option value="">-- Selecione --</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="selectProduto">Selecione a mercadoria</label>
+        <label for="selectProduto">Produto</label>
         <select id="selectProduto" required>
           <option value="">-- Selecione --</option>
         </select>
       </div>
       <div class="form-group">
         <label for="precoVenda">Valor unitário</label>
-        <!-- agora text para exibir R$ 1.000,00 -->
         <input type="text" id="precoVenda" readonly>
       </div>
       <div class="form-group">
@@ -49,17 +52,20 @@
         <input type="number" id="qtdVenda" value="1" min="1" required>
       </div>
       <div class="form-group">
-        <label for="totalVenda">Total da venda</label>
+        <label for="totalVenda">Total</label>
         <input type="text" id="totalVenda" readonly>
       </div>
       <div class="form-group">
         <label for="entradaVenda">Entrada</label>
-        <!-- text para máscara de moeda -->
         <input type="text" id="entradaVenda" value="0,00">
       </div>
       <div class="form-group">
-        <label for="parcelasVenda">Número de parcelas</label>
-        <input type="number" id="parcelasVenda" value="1" min="1">
+        <label for="parcelasVenda">Parcelas</label>
+        <input type="number" id="parcelasVenda" value="1" min="1" required>
+      </div>
+      <div class="form-group">
+        <label for="dueDay">Dia de Vencimento</label>
+        <input type="number" id="dueDay" placeholder="1–28" min="1" max="28" required>
       </div>
       <div class="form-group">
         <label for="valorParcela">Valor por parcela</label>
@@ -78,18 +84,17 @@
   <script src="js/storage.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/vendas.js"></script>
-
   <script>
-    // Máscara simples de moeda pt-BR para entrada
+    // alterna menu
+    document.getElementById('btn-menu').onclick = () => {
+      document.querySelector('.nav').classList.toggle('open');
+    };
+    // máscara de moeda
     const entradaInput = document.getElementById('entradaVenda');
     entradaInput.addEventListener('input', e => {
       let v = e.target.value.replace(/\D/g, '');
-      v = (parseInt(v, 10) / 100).toLocaleString('pt-BR', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
+      v = (parseInt(v,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
       e.target.value = v;
-      // atualiza totais
       if (typeof updateTotals === 'function') updateTotals();
     });
   </script>
