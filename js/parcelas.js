@@ -1,4 +1,3 @@
-// js/parcelas.js
 const { jsPDF } = window.jspdf;
 
 const listaParcelasDiv = document.getElementById('listaParcelas');
@@ -12,12 +11,12 @@ function carregarParcelas() {
   const produtos = getData('produtos');
   let vendasList = getData('vendas');
 
-  // filtra apenas parceladas e com paidInstallments < parcelas
+  // Filtra apenas vendas parceladas (mais de 1 parcela) e que não estejam totalmente pagas
   vendasList = vendasList.filter(v =>
     v.parcelas > 1 && (v.paidInstallments || 0) < v.parcelas
   );
 
-  // busca opcional
+  // Busca opcional por nome de cliente
   const termo = searchInput.value.toLowerCase();
   if (termo) {
     vendasList = vendasList.filter(v => {
@@ -29,29 +28,30 @@ function carregarParcelas() {
   listaParcelasDiv.innerHTML = '';
   vendasList.forEach(v => {
     const cli = clientes.find(c => c.id === v.cliente);
-    const prod= produtos.find(p => p.id === v.produto);
+    const prod = produtos.find(p => p.id === v.produto);
     if (!cli || !prod) return;
 
+    // Calcula o valor de cada parcela
     const parcelaValorNum = (prod.preco * v.qtd - v.entrada) / v.parcelas;
-    const parcelaValorStr = parcelaValorNum.toLocaleString('pt-BR',{
-      style:'currency', currency:'BRL'
+    const parcelaValorStr = parcelaValorNum.toLocaleString('pt-BR', {
+      style: 'currency', currency: 'BRL'
     });
-    const restante = v.parcelas - (v.paidInstallments||0);
-
+    
+    // Mostra o contador de parcelas pagas / total
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
       <h3>${cli.nome}</h3>
       <p><strong>Produto:</strong> ${prod.nome}</p>
       <p><strong>Valor Parcela:</strong> ${parcelaValorStr}</p>
-      <p><strong>Restam:</strong> ${restante} / ${v.parcelas}</p>
+      <p><strong>Parcelas pagas:</strong> ${v.paidInstallments || 0} / ${v.parcelas}</p>
       <button class="btn-pagar">Registrar Parcela</button>
       <button class="btn-pdf">Gerar comprovante</button>
     `;
 
     // Registrar Parcela com anexo de comprovante
     card.querySelector('.btn-pagar').onclick = () => {
-      // solicita arquivo
+      // Solicita arquivo
       const inp = document.createElement('input');
       inp.type = 'file';
       inp.accept = 'image/*';
@@ -60,10 +60,11 @@ function carregarParcelas() {
         if (!file) return;
         const reader = new FileReader();
         reader.onload = () => {
-          // salva prova e incrementa parcela
+          // Salva o comprovante e incrementa o número de parcelas pagas
           v.proofs = v.proofs || [];
           v.proofs.push(reader.result);
-          v.paidInstallments = (v.paidInstallments||0) + 1;
+          v.paidInstallments = (v.paidInstallments || 0) + 1;
+          // Atualiza os dados salvos no localStorage
           saveData('vendas',
             getData('vendas').map(x => x.id === v.id ? v : x)
           );
@@ -86,12 +87,12 @@ function carregarParcelas() {
  */
 function gerarPDF(cli, prod, venda, valorParcelaStr) {
   const doc = new jsPDF();
-
   const dataAtual = new Date().toLocaleDateString('pt-BR');
   const entradaStr = venda.entrada.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const nomeCliente = cli.nome;
   const nomeProduto = prod.nome;
-  const parcelas = `${venda.paidInstallments} / ${venda.parcelas}`;
+  // Exibe o contador de parcelas pagas / total
+  const parcelas = `${venda.paidInstallments || 0} / ${venda.parcelas}`;
   const dataVenda = venda.data;
   const obs = venda.obs || '-';
 
@@ -105,7 +106,6 @@ function gerarPDF(cli, prod, venda, valorParcelaStr) {
   doc.text(`Eu, Diego de Moraes Abilio, declaro que recebi de ${nomeCliente} o valor de ${valorParcelaStr},`, 20, y); y += 10;
   doc.text(`referente à parcela ${parcelas} do produto ${nomeProduto}, vendido em ${dataVenda}.`, 20, y); y += 10;
   doc.text(`Forma de pagamento: entrada de ${entradaStr} e saldo parcelado.`, 20, y); y += 10;
-  doc.text(``, 20, y); y += 10;
   doc.text(`Observações: ${obs}`, 20, y); y += 20;
   doc.text(`Data: ${dataAtual}`, 20, y); y += 20;
   doc.text('Assinatura: _________________________________________', 20, y); y += 10;
@@ -113,9 +113,6 @@ function gerarPDF(cli, prod, venda, valorParcelaStr) {
   const nomeArquivo = `recibo_${nomeCliente.replace(/\s+/g, '_')}_${Date.now()}.pdf`;
   doc.save(nomeArquivo);
 }
-
-
-
 
 searchInput.addEventListener('input', carregarParcelas);
 document.addEventListener('DOMContentLoaded', carregarParcelas);
