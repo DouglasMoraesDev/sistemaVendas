@@ -86,7 +86,6 @@ function carregarParcelas() {
  */
 function gerarPDF(cli, prod, venda, valorParcelaStr) {
   const doc = new jsPDF();
-  const nameUser = document.getElementById('username');
 
   const dataAtual = new Date().toLocaleDateString('pt-BR');
   const entradaStr = venda.entrada.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -103,7 +102,7 @@ function gerarPDF(cli, prod, venda, valorParcelaStr) {
   doc.setFontSize(12);
   let y = 40;
 
-  doc.text(`Eu, ${nameUser}, declaro que recebi de ${nomeCliente} o valor de ${valorParcelaStr},`, 20, y); y += 10;
+  doc.text(`Eu, Diego de Moraes Abilio, declaro que recebi de ${nomeCliente} o valor de ${valorParcelaStr},`, 20, y); y += 10;
   doc.text(`referente à parcela ${parcelas} do produto ${nomeProduto}, vendido em ${dataVenda}.`, 20, y); y += 10;
   doc.text(`Forma de pagamento: entrada de ${entradaStr} e saldo parcelado.`, 20, y); y += 10;
   doc.text(``, 20, y); y += 10;
