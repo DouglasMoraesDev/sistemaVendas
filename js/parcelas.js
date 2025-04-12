@@ -46,7 +46,7 @@ function carregarParcelas() {
       <p><strong>Valor Parcela:</strong> ${parcelaValorStr}</p>
       <p><strong>Restam:</strong> ${restante} / ${v.parcelas}</p>
       <button class="btn-pagar">Registrar Parcela</button>
-      <button class="btn-pdf">Gerar PDF</button>
+      <button class="btn-pdf">Gerar comprovante</button>
     `;
 
     // Registrar Parcela com anexo de comprovante
@@ -86,18 +86,37 @@ function carregarParcelas() {
  */
 function gerarPDF(cli, prod, venda, valorParcelaStr) {
   const doc = new jsPDF();
+  const nameUser = document.getElementById('username');
+
+  const dataAtual = new Date().toLocaleDateString('pt-BR');
+  const entradaStr = venda.entrada.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  const nomeCliente = cli.nome;
+  const nomeProduto = prod.nome;
+  const parcelas = `${venda.paidInstallments} / ${venda.parcelas}`;
+  const dataVenda = venda.data;
+  const obs = venda.obs || '-';
+
+  doc.setFont('Times', 'Normal');
   doc.setFontSize(16);
-  doc.text('Comprovante de Parcela', 20, 20);
+  doc.text('RECIBO DE PAGAMENTO', 105, 20, null, null, 'center');
+
   doc.setFontSize(12);
-  doc.text(`Cliente: ${cli.nome}`, 20, 40);
-  doc.text(`Produto: ${prod.nome}`, 20, 50);
-  doc.text(`Data da Venda: ${venda.data}`, 20, 60);
-  doc.text(`Entrada: ${venda.entrada.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`, 20, 70);
-  doc.text(`Parcela: ${venda.paidInstallments} / ${venda.parcelas}`, 20, 80);
-  doc.text(`Valor Parcela: ${valorParcelaStr}`, 20, 90);
-  doc.text(`Obs: ${venda.obs||'-'}`, 20, 100);
-  doc.save(`comprovante_${cli.nome.replace(/\s+/g,'_')}_${Date.now()}.pdf`);
+  let y = 40;
+
+  doc.text(`Eu, ${nameUser}, declaro que recebi de ${nomeCliente} o valor de ${valorParcelaStr},`, 20, y); y += 10;
+  doc.text(`referente à parcela ${parcelas} do produto ${nomeProduto}, vendido em ${dataVenda}.`, 20, y); y += 10;
+  doc.text(`Forma de pagamento: entrada de ${entradaStr} e saldo parcelado.`, 20, y); y += 10;
+  doc.text(``, 20, y); y += 10;
+  doc.text(`Observações: ${obs}`, 20, y); y += 20;
+  doc.text(`Data: ${dataAtual}`, 20, y); y += 20;
+  doc.text('Assinatura: _________________________________________', 20, y); y += 10;
+
+  const nomeArquivo = `recibo_${nomeCliente.replace(/\s+/g, '_')}_${Date.now()}.pdf`;
+  doc.save(nomeArquivo);
 }
+
+
+
 
 searchInput.addEventListener('input', carregarParcelas);
 document.addEventListener('DOMContentLoaded', carregarParcelas);
