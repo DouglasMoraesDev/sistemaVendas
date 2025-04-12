@@ -8,50 +8,64 @@
 </head>
 <body>
   <script>
-    if (localStorage.getItem('logado') !== 'true') window.location = 'index.html';
+    if (!localStorage.getItem('logado')) window.location = 'index.html';
   </script>
 
+  <button id="btn-menu" class="hamburger"><span></span><span></span><span></span></button>
   <nav class="nav">
     <a href="dashboard.html">Resumo</a>
     <a href="clientes.html">Clientes</a>
     <a href="produtos.html" class="active">Mercadorias</a>
-    <a href="vendas.html">Registrar uma venda</a>
-    <a href="historico.html">Histórico de venda</a>
+    <a href="vendas.html">Vendas</a>
+    <a href="historico.html">Histórico</a>
     <a href="parcelas.html">Parcelas</a>
-    <a href="comprovantes.html" class="active">Comprovantes</a>
-    <a href="configuracoes.html" class="active">Configurações</a>
-
+    <a href="comprovantes.html">Comprovantes</a>
+    <a href="configuracoes.html">Configurações</a>
     <button id="logout">Sair</button>
   </nav>
 
   <div class="container">
+    <button class="btn-back" onclick="location='dashboard.html'">← Resumo</button>
     <h1>Mercadorias</h1>
-    <!-- Form de cadastro/edição -->
+
     <form id="formProduto">
+      <label for="nomeProd">Nome da mercadoria</label>
       <input type="text" id="nomeProd" placeholder="Nome da mercadoria" required>
-      <input type="text" id="precoProd" placeholder="Preço" required step="0.01">
-      <input type="number" id="qtdProd" placeholder="Quantidade em Estoque" required>
+      <label for="precoProd">Preço</label>
+      <input type="text" id="precoProd" placeholder="0,00" required>
+      <label for="qtdProd">Quantidade em Estoque</label>
+      <input type="number" id="qtdProd" placeholder="Qtd" required>
+      <label for="fotoProd">Foto</label>
       <input type="file" id="fotoProd" accept="image/*">
       <button type="submit" id="btnSalvarProduto">Adicionar Mercadoria</button>
     </form>
 
-    <!-- Tabela de produtos -->
-    <table>
-      <thead>
-        <tr>
-          <th>Foto</th>
-          <th>Nome</th>
-          <th>Preço</th>
-          <th>Qtd</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody id="listaProdutos"></tbody>
-    </table>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Foto</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Qtd</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="listaProdutos"></tbody>
+      </table>
+    </div>
   </div>
 
   <script src="js/storage.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/produtos.js"></script>
+  <script>
+    document.getElementById('btn-menu').onclick = () =>
+      document.querySelector('.nav').classList.toggle('open');
+    document.getElementById('logout').onclick = () => {
+      localStorage.removeItem('logado');
+      location='index.html';
+    };
+  </script>
 </body>
 </html>

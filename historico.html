@@ -7,24 +7,23 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <script>
-    if (localStorage.getItem('logado') !== 'true') window.location = 'index.html';
-  </script>
+  <script>if(!localStorage.getItem('logado'))location='index.html';</script>
 
+  <button id="btn-menu" class="hamburger"><span></span><span></span><span></span></button>
   <nav class="nav">
     <a href="dashboard.html">Resumo</a>
     <a href="clientes.html">Clientes</a>
     <a href="produtos.html">Mercadorias</a>
-    <a href="vendas.html">Registrar uma venda</a>
-    <a href="historico.html">Histórico de venda</a>
+    <a href="vendas.html">Vendas</a>
+    <a href="historico.html" class="active">Histórico</a>
     <a href="parcelas.html">Parcelas</a>
-    <a href="comprovantes.html" class="active">Comprovantes</a>
-    <a href="configuracoes.html" class="active">Configurações</a>
-
+    <a href="comprovantes.html">Comprovantes</a>
+    <a href="configuracoes.html">Configurações</a>
     <button id="logout">Sair</button>
   </nav>
 
   <div class="container">
+    <button class="btn-back" onclick="location='dashboard.html'">← Resumo</button>
     <h1>Histórico de Vendas</h1>
     <div id="listaHistorico"></div>
   </div>
@@ -33,5 +32,13 @@
   <script src="js/auth.js"></script>
   <script src="js/vendas.js"></script>
   <script src="js/historico.js"></script>
+  <script>
+    document.getElementById('btn-menu').onclick = () =>
+      document.querySelector('.nav').classList.toggle('open');
+    document.getElementById('logout').onclick = () => {
+      localStorage.removeItem('logado');
+      location='index.html';
+    };
+  </script>
 </body>
 </html>

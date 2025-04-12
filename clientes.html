@@ -7,9 +7,10 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <script>if(localStorage.getItem('logado')!=='true')location='index.html';</script>
+  <script>
+    if (!localStorage.getItem('logado')) window.location = 'index.html';
+  </script>
 
-  <!-- menu -->
   <button id="btn-menu" class="hamburger"><span></span><span></span><span></span></button>
   <nav class="nav">
     <a href="dashboard.html">Resumo</a>
@@ -24,10 +25,9 @@
   </nav>
 
   <div class="container">
-    <!-- botão voltar -->
     <button class="btn-back" onclick="location='dashboard.html'">← Resumo</button>
-
     <h1>Clientes</h1>
+
     <form id="formCliente">
       <label for="nome">Nome</label>
       <input type="text" id="nome" placeholder="Nome" required>
@@ -43,7 +43,13 @@
     <div class="table-responsive">
       <table>
         <thead>
-          <tr><th>Nome</th><th>CPF</th><th>Endereço</th><th>Contato</th><th>Ações</th></tr>
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Endereço</th>
+            <th>Contato</th>
+            <th>Ações</th>
+          </tr>
         </thead>
         <tbody id="listaClientes"></tbody>
       </table>

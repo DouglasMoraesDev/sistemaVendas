@@ -8,13 +8,10 @@
 </head>
 <body>
   <script>
-    if (localStorage.getItem('logado') !== 'true') window.location = 'index.html';
+    if (!localStorage.getItem('logado')) window.location = 'index.html';
   </script>
 
-  <!-- menu hambúrguer + nav -->
-  <button id="btn-menu" class="hamburger">
-    <span></span><span></span><span></span>
-  </button>
+  <button id="btn-menu" class="hamburger"><span></span><span></span><span></span></button>
   <nav class="nav">
     <a href="dashboard.html">Resumo</a>
     <a href="clientes.html">Clientes</a>
@@ -28,56 +25,41 @@
   </nav>
 
   <div class="container">
+    <button class="btn-back" onclick="location='dashboard.html'">← Resumo</button>
     <h1 id="tituloVenda">Registrar Venda</h1>
+
     <form id="formVenda" class="form-list">
-      <!-- campos de cliente, produto, valores... -->
-      <div class="form-group">
-        <label for="selectCliente">Cliente</label>
-        <select id="selectCliente" required>
-          <option value="">-- Selecione --</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="selectProduto">Produto</label>
-        <select id="selectProduto" required>
-          <option value="">-- Selecione --</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="precoVenda">Valor unitário</label>
-        <input type="text" id="precoVenda" readonly>
-      </div>
-      <div class="form-group">
-        <label for="qtdVenda">Quantidade</label>
-        <input type="number" id="qtdVenda" value="1" min="1" required>
-      </div>
-      <div class="form-group">
-        <label for="totalVenda">Total</label>
-        <input type="text" id="totalVenda" readonly>
-      </div>
-      <div class="form-group">
-        <label for="entradaVenda">Entrada</label>
-        <input type="text" id="entradaVenda" value="0,00">
-      </div>
-      <div class="form-group">
-        <label for="parcelasVenda">Parcelas</label>
-        <input type="number" id="parcelasVenda" value="1" min="1" required>
-      </div>
-      <div class="form-group">
-        <label for="dueDay">Dia de Vencimento</label>
-        <input type="number" id="dueDay" placeholder="1–28" min="1" max="28" required>
-      </div>
-      <div class="form-group">
-        <label for="valorParcela">Valor por parcela</label>
-        <input type="text" id="valorParcela" readonly>
-      </div>
-      <div class="form-group">
-        <label for="obsVenda">Observações</label>
-        <input type="text" id="obsVenda">
-      </div>
-      <div class="form-group">
-        <button type="submit" id="btnSubmitVenda">Registrar Venda</button>
-      </div>
+      <label for="selectCliente">Cliente</label>
+      <select id="selectCliente" required><option value="">-- Selecione --</option></select>
+
+      <label for="selectProduto">Produto</label>
+      <select id="selectProduto" required><option value="">-- Selecione --</option></select>
+
+      <label for="precoVenda">Valor unitário</label>
+      <input type="text" id="precoVenda" readonly>
+
+      <label for="qtdVenda">Quantidade</label>
+      <input type="number" id="qtdVenda" value="1" min="1" required>
+
+      <label for="totalVenda">Total</label>
+      <input type="text" id="totalVenda" readonly>
+
+      <label for="entradaVenda">Entrada</label>
+      <input type="text" id="entradaVenda" value="0,00">
+
+      <label for="parcelasVenda">Parcelas</label>
+      <input type="number" id="parcelasVenda" value="1" min="1" required>
+
+      <label for="dueDay">Dia de Vencimento</label>
+      <input type="number" id="dueDay" placeholder="1–28" min="1" max="28" required>
+
+      <label for="valorParcela">Valor por parcela</label>
+      <input type="text" id="valorParcela" readonly>
+
+      <label for="obsVenda">Observações</label>
+      <input type="text" id="obsVenda">
+
+      <button type="submit" id="btnSubmitVenda">Registrar Venda</button>
     </form>
   </div>
 
@@ -85,15 +67,19 @@
   <script src="js/auth.js"></script>
   <script src="js/vendas.js"></script>
   <script>
-    // alterna menu
-    document.getElementById('btn-menu').onclick = () => {
+    document.getElementById('btn-menu').onclick = () =>
       document.querySelector('.nav').classList.toggle('open');
+    document.getElementById('logout').onclick = () => {
+      localStorage.removeItem('logado');
+      location='index.html';
     };
     // máscara de moeda
     const entradaInput = document.getElementById('entradaVenda');
     entradaInput.addEventListener('input', e => {
       let v = e.target.value.replace(/\D/g, '');
-      v = (parseInt(v,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+      v = (parseInt(v,10)/100).toLocaleString('pt-BR',{
+        minimumFractionDigits:2, maximumFractionDigits:2
+      });
       e.target.value = v;
       if (typeof updateTotals === 'function') updateTotals();
     });
