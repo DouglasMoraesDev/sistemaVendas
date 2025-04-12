@@ -11,12 +11,12 @@ function carregarParcelas() {
   const produtos = getData('produtos');
   let vendasList = getData('vendas');
 
-  // Filtra apenas vendas parceladas (mais de 1 parcela) e que não estejam totalmente pagas
+  // filtra apenas parceladas e com paidInstallments < parcelas
   vendasList = vendasList.filter(v =>
     v.parcelas > 1 && (v.paidInstallments || 0) < v.parcelas
   );
 
-  // Busca opcional por nome de cliente
+  // busca opcional
   const termo = searchInput.value.toLowerCase();
   if (termo) {
     vendasList = vendasList.filter(v => {
@@ -31,27 +31,26 @@ function carregarParcelas() {
     const prod = produtos.find(p => p.id === v.produto);
     if (!cli || !prod) return;
 
-    // Calcula o valor de cada parcela
     const parcelaValorNum = (prod.preco * v.qtd - v.entrada) / v.parcelas;
     const parcelaValorStr = parcelaValorNum.toLocaleString('pt-BR', {
       style: 'currency', currency: 'BRL'
     });
-    
-    // Mostra o contador de parcelas pagas / total
+    const pagas = v.paidInstallments || 0;
+    const restantes = v.parcelas - pagas;
+
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
       <h3>${cli.nome}</h3>
       <p><strong>Produto:</strong> ${prod.nome}</p>
       <p><strong>Valor Parcela:</strong> ${parcelaValorStr}</p>
-      <p><strong>Parcelas pagas:</strong> ${v.paidInstallments || 0} / ${v.parcelas}</p>
+      <p><strong>Restam:</strong> ${pagas} / ${v.parcelas}</p>
       <button class="btn-pagar">Registrar Parcela</button>
       <button class="btn-pdf">Gerar comprovante</button>
     `;
 
     // Registrar Parcela com anexo de comprovante
     card.querySelector('.btn-pagar').onclick = () => {
-      // Solicita arquivo
       const inp = document.createElement('input');
       inp.type = 'file';
       inp.accept = 'image/*';
@@ -60,14 +59,15 @@ function carregarParcelas() {
         if (!file) return;
         const reader = new FileReader();
         reader.onload = () => {
-          // Salva o comprovante e incrementa o número de parcelas pagas
-          v.proofs = v.proofs || [];
-          v.proofs.push(reader.result);
-          v.paidInstallments = (v.paidInstallments || 0) + 1;
-          // Atualiza os dados salvos no localStorage
-          saveData('vendas',
-            getData('vendas').map(x => x.id === v.id ? v : x)
-          );
+          const vendas = getData('vendas');
+          const index = vendas.findIndex(x => x.id === v.id);
+          if (index === -1) return;
+
+          vendas[index].proofs = vendas[index].proofs || [];
+          vendas[index].proofs.push(reader.result);
+          vendas[index].paidInstallments = (vendas[index].paidInstallments || 0) + 1;
+
+          saveData('vendas', vendas);
           carregarParcelas();
         };
         reader.readAsDataURL(file);
@@ -76,7 +76,11 @@ function carregarParcelas() {
     };
 
     // Gerar comprovante PDF
-    card.querySelector('.btn-pdf').onclick = () => gerarPDF(cli, prod, v, parcelaValorStr);
+    card.querySelector('.btn-pdf').onclick = () => {
+      const vendasAtualizadas = getData('vendas');
+      const vendaAtualizada = vendasAtualizadas.find(x => x.id === v.id);
+      gerarPDF(cli, prod, vendaAtualizada, parcelaValorStr);
+    };
 
     listaParcelasDiv.appendChild(card);
   });
@@ -87,12 +91,12 @@ function carregarParcelas() {
  */
 function gerarPDF(cli, prod, venda, valorParcelaStr) {
   const doc = new jsPDF();
+
   const dataAtual = new Date().toLocaleDateString('pt-BR');
   const entradaStr = venda.entrada.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const nomeCliente = cli.nome;
   const nomeProduto = prod.nome;
-  // Exibe o contador de parcelas pagas / total
-  const parcelas = `${venda.paidInstallments || 0} / ${venda.parcelas}`;
+  const parcelas = `${venda.paidInstallments} / ${venda.parcelas}`;
   const dataVenda = venda.data;
   const obs = venda.obs || '-';
 
@@ -106,6 +110,7 @@ function gerarPDF(cli, prod, venda, valorParcelaStr) {
   doc.text(`Eu, Diego de Moraes Abilio, declaro que recebi de ${nomeCliente} o valor de ${valorParcelaStr},`, 20, y); y += 10;
   doc.text(`referente à parcela ${parcelas} do produto ${nomeProduto}, vendido em ${dataVenda}.`, 20, y); y += 10;
   doc.text(`Forma de pagamento: entrada de ${entradaStr} e saldo parcelado.`, 20, y); y += 10;
+  doc.text(``, 20, y); y += 10;
   doc.text(`Observações: ${obs}`, 20, y); y += 20;
   doc.text(`Data: ${dataAtual}`, 20, y); y += 20;
   doc.text('Assinatura: _________________________________________', 20, y); y += 10;
