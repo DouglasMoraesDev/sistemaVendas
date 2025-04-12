@@ -3,20 +3,17 @@ const { jsPDF } = window.jspdf;
 const listaParcelasDiv = document.getElementById('listaParcelas');
 const searchInput      = document.getElementById('searchCliente');
 
-/**
- * Carrega e exibe vendas com parcelas pendentes
- */
 function carregarParcelas() {
   const clientes = getData('clientes');
   const produtos = getData('produtos');
   let vendasList = getData('vendas');
 
-  // filtra apenas parceladas e com paidInstallments < parcelas
+  // filtra vendas parceladas que ainda têm parcelas a pagar
   vendasList = vendasList.filter(v =>
     v.parcelas > 1 && (v.paidInstallments || 0) < v.parcelas
   );
 
-  // busca opcional
+  // filtro por nome do cliente
   const termo = searchInput.value.toLowerCase();
   if (termo) {
     vendasList = vendasList.filter(v => {
@@ -36,7 +33,7 @@ function carregarParcelas() {
       style: 'currency', currency: 'BRL'
     });
     const pagas = v.paidInstallments || 0;
-    const restantes = v.parcelas - pagas;
+    const restante = v.parcelas - pagas;
 
     const card = document.createElement('div');
     card.className = 'card';
@@ -49,7 +46,7 @@ function carregarParcelas() {
       <button class="btn-pdf">Gerar comprovante</button>
     `;
 
-    // Registrar Parcela com anexo de comprovante
+    // Registrar Parcela com comprovante
     card.querySelector('.btn-pagar').onclick = () => {
       const inp = document.createElement('input');
       inp.type = 'file';
@@ -63,11 +60,15 @@ function carregarParcelas() {
           const index = vendas.findIndex(x => x.id === v.id);
           if (index === -1) return;
 
+          // Atualiza proofs e parcelas pagas
           vendas[index].proofs = vendas[index].proofs || [];
           vendas[index].proofs.push(reader.result);
           vendas[index].paidInstallments = (vendas[index].paidInstallments || 0) + 1;
 
+          // Salva no localStorage
           saveData('vendas', vendas);
+
+          // Atualiza a interface
           carregarParcelas();
         };
         reader.readAsDataURL(file);
@@ -76,19 +77,12 @@ function carregarParcelas() {
     };
 
     // Gerar comprovante PDF
-    card.querySelector('.btn-pdf').onclick = () => {
-      const vendasAtualizadas = getData('vendas');
-      const vendaAtualizada = vendasAtualizadas.find(x => x.id === v.id);
-      gerarPDF(cli, prod, vendaAtualizada, parcelaValorStr);
-    };
+    card.querySelector('.btn-pdf').onclick = () => gerarPDF(cli, prod, v, parcelaValorStr);
 
     listaParcelasDiv.appendChild(card);
   });
 }
 
-/**
- * Gera PDF de comprovante de parcela
- */
 function gerarPDF(cli, prod, venda, valorParcelaStr) {
   const doc = new jsPDF();
 
@@ -96,7 +90,7 @@ function gerarPDF(cli, prod, venda, valorParcelaStr) {
   const entradaStr = venda.entrada.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const nomeCliente = cli.nome;
   const nomeProduto = prod.nome;
-  const parcelas = `${venda.paidInstallments} / ${venda.parcelas}`;
+  const parcelas = `${venda.paidInstallments || 0} / ${venda.parcelas}`;
   const dataVenda = venda.data;
   const obs = venda.obs || '-';
 
@@ -119,5 +113,6 @@ function gerarPDF(cli, prod, venda, valorParcelaStr) {
   doc.save(nomeArquivo);
 }
 
+// Inicializa
 searchInput.addEventListener('input', carregarParcelas);
 document.addEventListener('DOMContentLoaded', carregarParcelas);
