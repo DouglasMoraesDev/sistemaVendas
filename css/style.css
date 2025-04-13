@@ -3,8 +3,8 @@
    ============================== */
    :root {
     --clr-bg:        #316192;
-    --clr-primary:   #264653;
-    --clr-secondary: #2a9d8f;
+    --clr-primary:   #0c283d;
+    --clr-secondary: #316192;
     --clr-accent:    #264653;
     --clr-surface:   #ffffff;
     --clr-text:      #212529;
@@ -17,7 +17,9 @@
      Reset & tipografia
      ============================== */
   * {
-    margin: 0; padding: 0; box-sizing: border-box;
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
     font-family: 'Segoe UI', sans-serif;
   }
   body {
@@ -25,7 +27,10 @@
     color: var(--clr-text);
     padding-bottom: 80px;
   }
-
+  
+  /* ==============================
+     Login
+     ============================== */
   .login {
     text-align: center;
     background: var(--clr-primary);
@@ -33,71 +38,90 @@
   }
   
   /* ==============================
-   Botão Menu
-   ============================== */
-.hamburger {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  width: 45px;
-  height: 45px;
-  background: var(--clr-secondary);
-  color: var(--clr-text-light);
-  border: none;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 0.9rem;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  z-index: 1001;
-  transition: background 0.2s, transform 0.1s;
-}
-.hamburger:hover {
-  background: var(--clr-accent);
-}
-.hamburger:active {
-  transform: scale(0.97);
-}
-
+     Botão Menu
+     ============================== */
+  .hamburger {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    width: 45px;
+    height: 45px;
+    background: var(--clr-bg);
+    color: var(--clr-text-light);
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    z-index: 1001;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .hamburger:hover {
+    background: var(--clr-primary);
+  }
+  .hamburger:active {
+    transform: scale(0.97);
+  }
   
   /* ==============================
      Navegação
      ============================== */
   .nav {
-    position: fixed; top: 0; left: 0; height: 100%;
-    width: 240px; background: var(--clr-primary);
-    padding-top: 80px; transform: translateX(-100%);
-    transition: transform .3s; z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 240px;
+    background: var(--clr-primary);
+    padding-top: 80px;
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 1000;
   }
   .nav.open {
     transform: translateX(0);
   }
-  .nav a, .nav button {
-    display: block; color: var(--clr-text-light);
-    text-decoration: none; padding: 12px 20px;
-    font-size: 1rem; transition: background .2s;
+  .nav a, 
+  .nav button {
+    display: block;
+    color: var(--clr-text-light);
+    text-decoration: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    transition: background 0.2s;
   }
-  .nav a:hover, .nav button:hover {
+  .nav a:hover, 
+  .nav button:hover {
     background: rgba(255,255,255,0.1);
   }
   .nav a.active {
     background: var(--clr-secondary);
   }
-  .nav.open ~ .container {
-    margin-left: 240px;
+   #logout{
+    background: var(--clr-primary);
+    color: var(--clr-text-light);
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
   }
   
   /* ==============================
      Container
      ============================== */
   .container {
-    max-width: 900px; margin: 40px auto; padding: 20px;
-    background: var(--clr-surface); border-radius: 8px;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: var(--clr-surface);
+    border-radius: 8px;
     box-shadow: var(--shadow);
-    transition: margin-left .3s;
+    transition: margin-left 0.3s;
   }
   
   /* ==============================
@@ -110,7 +134,7 @@
     font-size: 1rem;
     margin-bottom: 16px;
     cursor: pointer;
-    transition: color .2s;
+    transition: color 0.2s;
   }
   .btn-back:hover {
     color: var(--clr-accent);
@@ -120,27 +144,37 @@
      Cabeçalhos
      ============================== */
   h1 {
-    text-align: center; margin-bottom: 8px;
-    font-size: 2rem; color: var(--clr-primary);
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 2rem;
+    color: var(--clr-primary);
   }
   .subtitle {
-    text-align: center; color: var(--clr-secondary);
-    margin-bottom: 24px; font-size: 1.2rem;
+    text-align: center;
+    color: var(--clr-secondary);
+    margin-bottom: 24px;
+    font-size: 1.2rem;
   }
   
   /* ==============================
      Cards de resumo
      ============================== */
   .cards {
-    display: flex; gap: 20px; flex-wrap: wrap;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center; /* Centraliza os cards na tela */
   }
   .card {
-    flex: 1; min-width: 150px;
+    flex: 1;
+    min-width: 150px;
     background: var(--clr-surface);
     color: var(--clr-text);
-    padding: 20px; margin: 10px;
-    border-radius: 8px; box-shadow: var(--shadow);
-    transition: transform .2s, box-shadow .2s;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
   }
   .card:hover {
     transform: translateY(-4px);
@@ -154,65 +188,121 @@
     border-left: 5px solid var(--clr-accent);
   }
   .card-notify ul {
-    list-style: none; padding-left: 0; margin-top: 12px;
+    list-style: none;
+    padding-left: 0;
+    margin-top: 12px;
   }
   .card-notify li {
-    margin: 6px 0; font-weight: bold; color: var(--clr-accent);
+    margin: 6px 0;
+    font-weight: bold;
+    color: var(--clr-accent);
   }
   
   /* ==============================
      Imagens (produtos e comprovantes)
      ============================== */
   img.produto {
-    width: 50px; height: 50px;
-    object-fit: cover; border-radius: 4px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
   }
   .card img.produto {
-    width: 100px; height: 100px;
+    width: 100px;
+    height: 100px;
   }
   .proof-img {
-    width: 50px; height: 50px;
-    object-fit: cover; border-radius: 4px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
     border: 1px solid var(--border);
   }
   .logout {
-    background-color:#264653
+    background-color: #264653;
   }
   
   /* ==============================
      Tabelas
      ============================== */
-  .table-responsive { overflow-x: auto; margin-top: 20px; }
+  .table-responsive {
+    overflow-x: auto;
+    margin-top: 20px;
+  }
   table {
-    width: 100%; border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto; /* Centraliza a tabela */
   }
   th, td {
-    padding: 12px; border: 1px solid var(--border);
+    padding: 12px;
+    border: 1px solid var(--border);
   }
   th {
-    background: var(--clr-primary); color: var(--clr-text-light);
+    background: var(--clr-primary);
+    color: var(--clr-text-light);
   }
   
   /* ==============================
      Formulários
      ============================== */
   form {
-    display: grid; gap: 16px; margin-bottom: 24px;
-    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    display: grid;
+    gap: 16px;
+    margin-bottom: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
-  form label { font-weight: bold; color: var(--clr-primary); }
-  form input, form select, form button { width: 100%; }
+  form label {
+    font-weight: bold;
+    color: var(--clr-primary);
+  }
+  form input,
+  form select,
+  form button {
+    width: 100%;
+  }
   
   /* ==============================
-     Responsivo
+     Responsivo para telas pequenas
+     ============================== */
+  @media (max-width: 767px) {
+    .nav {
+      /* Mantém o menu lateral oculto por padrão */
+      transform: translateX(-100%);
+    }
+    .nav.open {
+      transform: translateX(0);
+    }
+  }
+  
+  /* ==============================
+     Ajustes para telas desktop
      ============================== */
   @media (min-width: 768px) {
-    .hamburger { display: none; }
-    .nav {
-      position: static; transform: none; height: auto;
-      width: 100%; display: flex; padding: 0;
+    /* Esconde o botão hamburger e reposiciona a navegação */
+    .hamburger {
+      display: none;
     }
-    .nav a, .nav button { display: inline-block; margin-right: 8px; }
-    .container { margin-left: 0; }
+    .nav {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+      width: 100%;
+      padding: 10px 0;
+      transform: none;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav a, .nav button {
+      display: inline-block;
+      margin: 0 1rem;
+      padding: 10px 15px;
+    }
+    /* Reposiciona o container para centralizá-lo com a nova navegação */
+    .container {
+      margin-top: 20px;
+    }
   }
   

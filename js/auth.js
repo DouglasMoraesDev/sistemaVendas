@@ -1,5 +1,5 @@
 // Usuário padrão (pode depois vir de um array ou API)
-const userDefault = { user: 'Diego', pass: '1234', user: 'admin', pass: 'admin' };
+const userDefault = { user: 'Diego', pass: '1234' };
 
 document.getElementById('btnLogin')?.addEventListener('click', () => {
   const u = document.getElementById('username').value;
