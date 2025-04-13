@@ -5,7 +5,7 @@
     --clr-bg:        #316192;
     --clr-primary:   #264653;
     --clr-secondary: #2a9d8f;
-    --clr-accent:    #e76f51;
+    --clr-accent:    #264653;
     --clr-surface:   #ffffff;
     --clr-text:      #212529;
     --clr-text-light:#f8f9fa;
@@ -25,38 +25,43 @@
     color: var(--clr-text);
     padding-bottom: 80px;
   }
+
+  .login {
+    text-align: center;
+    background: var(--clr-primary);
+    color: var(--clr-text-light);
+  }
   
   /* ==============================
-     Hambúrguer
-     ============================== */
-  .hamburger {
-    position: fixed; top: 10px; left: 10px;
-    width: 30px; height: 30px;
-    background: var(--clr-surface);
-    border-radius: 50%;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    box-shadow: var(--shadow);
-    cursor: pointer; z-index: 1001;
-  }
-  .hamburger span {
-    width: 24px; height: 2px;
-    background: var(--clr-primary);
-    border-radius: 1px;
-    transition: transform .3s, opacity .3s;
-  }
-  .hamburger span:not(:last-child) {
-    margin-bottom: 6px;
-  }
-  .nav.open ~ .hamburger span:nth-child(1) {
-    transform: translateY(6px) rotate(45deg);
-  }
-  .nav.open ~ .hamburger span:nth-child(2) {
-    opacity: 0;
-  }
-  .nav.open ~ .hamburger span:nth-child(3) {
-    transform: translateY(-6px) rotate(-45deg);
-  }
+   Botão Menu
+   ============================== */
+.hamburger {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: 45px;
+  height: 45px;
+  background: var(--clr-secondary);
+  color: var(--clr-text-light);
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  z-index: 1001;
+  transition: background 0.2s, transform 0.1s;
+}
+.hamburger:hover {
+  background: var(--clr-accent);
+}
+.hamburger:active {
+  transform: scale(0.97);
+}
+
   
   /* ==============================
      Navegação
@@ -169,6 +174,9 @@
     width: 50px; height: 50px;
     object-fit: cover; border-radius: 4px;
     border: 1px solid var(--border);
+  }
+  .logout {
+    background-color:#264653
   }
   
   /* ==============================

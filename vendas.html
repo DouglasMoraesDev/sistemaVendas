@@ -11,13 +11,13 @@
     if (!localStorage.getItem('logado')) window.location = 'index.html';
   </script>
 
-  <button id="btn-menu" class="hamburger">Menu</button>
+  <button id="btn-menu" class="hamburger">Menu</button> <br>
   <nav class="nav">
     <a href="dashboard.html">Resumo</a>
     <a href="clientes.html">Clientes</a>
     <a href="produtos.html">Mercadorias</a>
-    <a href="vendas.html" class="active">Vendas</a>
-    <a href="historico.html">Histórico</a>
+    <a href="vendas.html" class="active">Realizar uma venda</a>
+    <a href="historico.html">Histórico de vendas</a>
     <a href="parcelas.html">Parcelas</a>
     <a href="comprovantes.html">Comprovantes</a>
     <a href="configuracoes.html">Configurações</a>
@@ -32,7 +32,7 @@
       <label for="selectCliente">Cliente</label>
       <select id="selectCliente" required><option value="">-- Selecione --</option></select>
 
-      <label for="selectProduto">Produto</label>
+      <label for="selectProduto">mercadoria</label>
       <select id="selectProduto" required><option value="">-- Selecione --</option></select>
 
       <label for="precoVenda">Valor unitário</label>
