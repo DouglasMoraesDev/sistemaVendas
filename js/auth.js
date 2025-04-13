@@ -1,6 +1,7 @@
 // Usuário padrão (pode depois vir de um array ou API)
 const userDefault = { user: 'Diego', pass: '1234' };
 
+
 document.getElementById('btnLogin')?.addEventListener('click', () => {
   const u = document.getElementById('username').value;
   const p = document.getElementById('password').value;
